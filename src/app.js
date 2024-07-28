@@ -1,7 +1,19 @@
-import React from "react";
+import express from "express";
+import cors from "cors";
+import cookieParser from "cookie-parser";
+const app = express();
+app.use(
+  cors({
+    origin: process.env.CORS_URL,
+    credentials: true,
+  })
+);
+app.use(express.json({ limit: "20kb" }));
 
-const app = () => {
-  return <div></div>;
-};
+app.use(express.urlencoded({ extended: true }));
 
-export default app;
+app.use(express.static("public"));
+
+app.use(cookieParser());
+
+export { app };
